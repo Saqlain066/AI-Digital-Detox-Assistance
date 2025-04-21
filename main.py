@@ -72,6 +72,5 @@ def check_alert():
         return jsonify({"alert": "✅ You're within your screen time limit. Keep going!"})
 
 if __name__ == "__main__":
-    app.run(debug=True)
     port = int(os.environ.get("PORT", 5000)) 
     app.run(host="0.0.0.0", port=port, debug=True)
