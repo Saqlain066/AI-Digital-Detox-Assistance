@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Wellness Assistant</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            padding: 40px;
+            background: #f4f6f9;
+        }
+
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+        }
+
+        button {
+            padding: 10px;
+        }
+
+        .response {
+            margin-top: 20px;
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+
+    <h1>🤖 AI Wellness Assistant</h1>
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="question"
+            placeholder="Ask about digital wellness..."
+            required
+        >
+
+        <button type="submit">
+            Ask
+        </button>
+
+    </form>
+
+{% if history %}
+
+    {% for chat in history %}
+
+        <div class="response">
+
+            <p>
+                <b>You:</b>
+                {{ chat.question }}
+            </p>
+
+            <hr>
+
+            <p>
+                <b>Assistant:</b>
+                {{ chat.answer }}
+            </p>
+
+        </div>
+
+        <br>
+
+    {% endfor %}
+
+{% endif %}
+
+    <br>
+
+    <a href="/clear_chat">
+        <button>
+            🗑️ Start New Chat
+        </button>
+    </a>
+
+    <br><br>
+
+    <a href="/">
+        <button>
+            Back to Dashboard
+        </button>
+    </a>
+
+</div>
+
+</body>
+</html>

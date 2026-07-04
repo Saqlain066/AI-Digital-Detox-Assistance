@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Digital Detox Assistant</title>
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+    <h1>🧠 AI Digital Detox Assistant</h1>
+    <p style="text-align:center;">
+        Monitor • Predict • Improve Digital Wellbeing
+    </p>
+
+    <!-- Statistics Card -->
+    <div class="card">
+        <h2>📊 Usage Statistics</h2>
+
+        <p><b>Total Days Recorded:</b> {{ total_days }}</p>
+        <p><b>Average Screen Time:</b> {{ average_usage }} hours</p>
+        <p><b>Highest Screen Time:</b> {{ highest_usage }} hours</p>
+    </div>
+
+    <!-- AI Wellness Score -->
+    <div class="card">
+        <h2>💚 AI Wellness Score</h2>
+        <h1>{{ wellness_score }}/100</h1>
+    </div>
+
+    <!-- Set Daily Limit -->
+    <div class="card">
+        <h2>⏰ Set Daily Screen Time Limit</h2>
+
+        <form action="/set_limit" method="POST">
+
+            <input
+                type="number"
+                step="0.5"
+                name="daily_limit"
+                placeholder="Enter limit in hours"
+                required
+            >
+
+            <button type="submit">
+                Save Limit
+            </button>
+
+        </form>
+
+        {% if current_limit %}
+        <p>
+            Current Limit:
+            <b>{{ current_limit }} hours</b>
+        </p>
+        {% endif %}
+    </div>
+
+    <!-- AI Prediction -->
+    <div class="card">
+
+        <h2>🧠 AI Prediction</h2>
+
+        <p class="prediction">
+            <b>Predicted Screen Time:</b>
+            {{ prediction }} hours
+        </p>
+
+        <p class="category">
+            <b>User Category:</b>
+            {{ category }}
+        </p>
+
+        <p class="recommendation">
+            <b>Recommendation:</b>
+            {{ suggestion }}
+        </p>
+
+    </div>
+
+    <!-- Warning Card -->
+    {% if warning %}
+    <div class="card">
+
+        <h2>🚨 Screen Time Warning</h2>
+
+        <p>
+            Your predicted screen time exceeds your daily limit.
+        </p>
+
+        <p>
+            <b>💬 Motivation:</b>
+            {{ quote }}
+        </p>
+
+        <p>
+            <b>🧘 Suggested Activity:</b>
+            {{ activity }}
+        </p>
+
+        <a href="/chat">
+            <button>
+            🤖 Ask AI Assistant
+            </button>
+        </a>
+
+    </div>
+    {% endif %}
+
+    <!-- Focus Mode -->
+    {% if warning %}
+    <div class="card">
+
+        <h2>⏳ Focus Mode</h2>
+
+        <p>
+            Start a short digital detox session.
+        </p>
+
+        <a href="/focus">
+            <button>
+                Start Focus Mode
+            </button>
+        </a>
+
+    </div>
+    {% endif %}
+
+
+
+    <div class="card">
+
+        <h2>🤖 AI Wellness Assistant</h2>
+
+        <p>
+            Ask questions about screen time, productivity,
+            focus and digital wellness.
+        </p>
+
+        <a href="/chat">
+            <button>
+                Open Chatbot
+            </button>
+        </a>
+
+    </div>
+
+
+    <!-- Export Report -->
+    <div class="card">
+
+        <h2>📄 Export Report</h2>
+
+        <a href="/report">
+            <button>
+                Download CSV Report
+            </button>
+        </a>
+
+    </div>
+
+    <!-- Graph -->
+    <div class="card">
+
+        <h2>📈 Screen Time Trend</h2>
+
+        <img
+            src="{{ url_for('static', filename='graph.png') }}"
+            width="700"
+        >
+
+    </div>
+
+    <!-- Table -->
+    <div class="card">
+
+        <h2>📋 Stored Screen Time Data</h2>
+
+        <table>
+
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Screen Time (Hours)</th>
+            </tr>
+
+            {% for row in records %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</body>
+</html>
